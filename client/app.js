@@ -20,7 +20,7 @@ const login = (event) => {
         dom.messagesSection.classList.add('show');
         console.log('Login success');
     } else {
-        console.log('Username cannot be empty.');
+        alert('Username cannot be empty.');
     }
 };
 
@@ -35,7 +35,7 @@ const sendMessage = (event) => {
         alert('Message cant be empty');
     } else {
         addMessage(userName, message);
-        messageContentInput.value = "";
+        dom.messageContentInput.value = "";
     }
 };
 
