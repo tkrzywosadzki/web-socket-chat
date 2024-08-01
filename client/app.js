@@ -10,6 +10,14 @@ const dom = {
 let userName = "";
 dom.messageContentInput.setAttribute('autoComplete', 'off');
 
+const socket = io();
+socket.on('message', (event) => addMessage(event.author, event.content));
+socket.on('newUser', (event) => {
+    if (event.name !== userName) {
+        addMessage('ChatBot', event.name + ' has joined the conversation!');
+    }
+});
+
 const login = (event) => {
     event.preventDefault();
 
@@ -19,6 +27,7 @@ const login = (event) => {
         dom.loginForm.classList.remove('show');
         dom.messagesSection.classList.add('show');
         console.log('Login success');
+        socket.emit('join', userName)
     } else {
         alert('Username cannot be empty.');
     }
@@ -35,6 +44,7 @@ const sendMessage = (event) => {
         alert('Message cant be empty');
     } else {
         addMessage(userName, message);
+        socket.emit('message', { author: userName, content: message })
         dom.messageContentInput.value = "";
     }
 };
@@ -50,6 +60,9 @@ const addMessage = (author, content) => {
     if(author === userName) {
         message.classList.add('message--self');
         author = 'You';
+    }
+    if (author === 'ChatBot') {
+        message.classList.add('message--bot');
     }
 
     const authorElement = document.createElement('h3');

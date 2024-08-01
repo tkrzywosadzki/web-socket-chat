@@ -6,10 +6,11 @@
   "author": "Tomasz Krzywosadzki <t.krzywosadzki@gmail.com>",
   "license": "MIT",
   "scripts": {
-      "start": "npx nodemon server.js"
-    },
+    "start": "npx nodemon server.js"
+  },
   "dependencies": {
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "socket.io": "4.7.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
